@@ -29,5 +29,20 @@ namespace BookStoreManagement.Controllers
                 return BadRequest(res);
             }
         }
+
+        // GET - api/v1/[controller]/:id
+        [HttpGet("{authorId:int}")]
+        public async Task<ActionResult<List<AuthorDTO>>> GetAuthorById([FromRoute] int authorId)
+        {
+            ResponseDTO<AuthorDTO> res = await _authorsRespository.GetAuthorById(authorId);
+            if (res.Success)
+            {
+                return Ok(res);
+            }
+            else
+            {
+                return NotFound(res);
+            }
+        }
     }
 }

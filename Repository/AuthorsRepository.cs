@@ -41,5 +41,37 @@ namespace BookStoreManagement.Repository
                 };
             }
         }
+
+        public async Task<ResponseDTO<AuthorDTO>> GetAuthorById(int authorId)
+        {
+            try
+            {
+                Author? currAuthor = await _dbContext.Authors.FirstOrDefaultAsync(a => a.Id == authorId);
+                if(currAuthor == null)
+                {
+                    return new ResponseDTO<AuthorDTO>
+                    {
+                        Success = false,
+                        Message = "Invalid author id."
+                    };
+                }
+
+                return new ResponseDTO<AuthorDTO>
+                {
+                    Success = true,
+                    Message = "Author retrived successfully.",
+                    Data = _mapper.Map<AuthorDTO>(currAuthor)
+                };
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return new ResponseDTO<AuthorDTO>
+                {
+                    Success = false,
+                    Message = "Something wents wrong!"
+                };
+            }
+        }
     }
 }
