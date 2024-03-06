@@ -6,6 +6,9 @@ using BookStoreManagement.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+//add logger
+builder.Logging.ClearProviders();
+builder.Logging.AddLog4Net("log4net.config");
 
 // Add services to the container.
 builder.Services.AddControllers();

@@ -10,11 +10,13 @@ namespace BookStoreManagement.Repository
     {
         private readonly BookStoreDBContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly ILogger<AuthorsRepository> _logger;
 
-        public AuthorsRepository(BookStoreDBContext dbContext, IMapper mapper)
+        public AuthorsRepository(BookStoreDBContext dbContext, IMapper mapper, ILogger<AuthorsRepository> logger)
         {
             _dbContext = dbContext;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<ResponseDTO<List<AuthorDTO>>> GetAllAuthors()
@@ -31,7 +33,7 @@ namespace BookStoreManagement.Repository
             }
             catch(Exception ex)
             {
-                Console.WriteLine("An exception: ", ex);
+                _logger.LogError(ex.Message);
                 return new ResponseDTO<List<AuthorDTO>>
                 {
                     Success = false,

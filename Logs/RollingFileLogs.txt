@@ -1,0 +1,1 @@
+2024-03-06 17:03:03,180 [.NET ThreadPool Worker] ERROR BookStoreManagement.Repository.AuthorsRepository.MoveNext[28] - MESSAGE : My Exception here
